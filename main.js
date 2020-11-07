@@ -8,11 +8,12 @@ var busCod = document.getElementById("iptBuscar")
 
 class Producto {
     constructor(codigo, nombre, desc, cantidad, costo) {
-        this._codigo = codigo
-        this._nombre = nombre
-        this._desc = desc
-        this._cantidad = cantidad
-        this._costo = costo
+        this._codigo = codigo;
+        this._nombre = nombre;
+        this._desc = desc;
+        this._cantidad = cantidad;
+        this._costo = costo;
+        this.siguiente = null;
     }
     setCodigo() {
         return this._codigo
@@ -21,18 +22,32 @@ class Producto {
         return this._codigo + '._ ' + this._nombre + ' (' + this._desc + ') ' + this._cantidad + ' unidades ' + this._costo + ' pesos'
     }
 }
-class Almacen {
+class Inventario {
     constructor() {
         this._productos = new Array()
+        this.inicio= null;
 
     }
-    addProduct(Producto) {
-        let pos = this._productos.length
-        if (pos < 20) {
-            this._productos[pos] = Producto
-            return true
-        }
+    agregarInicio(nuevo) {
+        nuevo.siguiente= this.inicio;
+        this.inicio= nuevo;
+        
+
     }
+    agregarNuevo(nuevo){
+        if(this.inicio== null){
+            this.inicio= nuevo;
+        }else{
+            aux= this.inicio;
+            while(aux.siguiente !== null){
+                aux= aux.siguiente;
+                aux.siguiente= nuevo;
+            }
+        }
+
+
+    }
+   
     delateProduct(codigo) {
         let i = 0
         while (i < this._productos.length && this._productos[i].setCodigo() != codigo) {
