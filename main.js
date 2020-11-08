@@ -13,7 +13,13 @@ class Producto {
         this._desc = desc;
         this._cantidad = cantidad;
         this._costo = costo;
-        this.siguiente = null;
+        this._siguiente = null;
+    }
+    getSiguiente(producto){
+        this._siguiente= producto;
+    }
+    setSiguiente(){
+        return this._siguiente;
     }
     setCodigo() {
         return this._codigo
@@ -24,22 +30,21 @@ class Producto {
 }
 class Inventario {
     constructor() {
-        this.inicio= null;
+        this._inicio= null;
+        this.size= 0;
     }
-    agregarInicio(nuevo) {
-        nuevo.siguiente= this.inicio;
-        this.inicio= nuevo;
-    }
-    agregarNuevo(nuevo){
-        if(this.inicio== null){
-            this.inicio= nuevo;
+    
+    agregarNuevo(producto){
+        if(this._inicio== null){
+            this._inicio= producto;
         }else{
-            aux= this.inicio;
-            while(aux.siguiente !== null){
-                aux= aux.siguiente;
-                aux.siguiente= nuevo;
+            let aux= this._inicio;
+            while(aux.setSiguiente() !== null){
+                 aux= setSiguiente();
             }
+            aux.getSiguiente(producto)
         }
+        this.size++
     }
 
     eliminarInicio(){
@@ -53,10 +58,10 @@ class Inventario {
         if(this.inicio== codigo){
             return this.eliminarInicio();
         } else{
-            aux= this.inicio;
+            let aux= this.inicio;
             while(aux.siguiente.codigo!== codigo){
                 aux= aux.siguiente;
-            }if(aux.siguiente!==null){
+            }if(aux.siguiente !==null){
                 temp= aux.siguiente;
                 aux.siguiente= temp.siguiente;
                 temp.siguiente = null;
@@ -67,111 +72,32 @@ class Inventario {
              
         }
     }
+
+    buscar(codigo){
+        while(aux.siguiente.codigo !== codigo){
+            aux= aux.siguiente;
+
+
+
+        }
+    }
    
-    delateProduct(codigo) {
-        let i = 0
-        while (i < this._productos.length && this._productos[i].setCodigo() != codigo) {
-            i++
-        }
-        if (i > this._productos.length) {
-            return false
-        } else {
-            this._productos[i] = null
-            do {
-                this._productos[i] = this._productos[i + 1]
-                i++
-            } while (i < this._productos.length)
-            this._productos.pop()
-            return true
-        }
 
-    }
-    buscar(codigo) {
-        let i = 0
-        while (i < this._productos.length && this._productos[i].setCodigo() != codigo) {
-            i++
-        }
-        if (i < this._productos.length) {
-            return this._productos[i].mostrarInfo()
-        } else {
-            return false
-        }
-
-    }
-    listar() {
-        let i = 0
-        let ls2 = document.querySelector('#listaForm')
-        while (i < this._productos.length) {
-            let objeto = document.createElement('li')
-            objeto.textContent = this._productos[i].mostrarInfo()
-            ls2.appendChild(objeto)
-            i++
-        }
-        if (i < this._productos.length) {
-            return false
-        } else {
-            return true
-        }
-    }
-    listarInver() {
-        if (this._productos.length != 0) {
-            let i = this._productos.length - 1
-            let ls2 = document.querySelector('#listaForm2')
-            while (i < this._productos.length && i != -1) {
-                let objeto = document.createElement('li')
-                objeto.textContent = this._productos[i].mostrarInfo()
-                ls2.appendChild(objeto)
-                i--
-            }
-            return true
-        } else {
-            return false
-        }
-    }
     mostrar() {
-        for (let i = 0; i < this._productos.length; i++) {
-            console.log(this._productos[i].mostrarInfo())
+        for (this.size = 0; this.size < 20; this.size++) {
+            console.log(this._productos.mostrarInfo())
         }
     }
 }
 
-var Bodega1 = new Almacen()
+var Prueba = new Inventario()
 btnAgregar.addEventListener('click', () => {
-    let newProduct = new Producto(code.value, nom.value, desc.value, cant.value, cost.value)
-    if (Bodega1.addProduct(newProduct) === true) {
+    let nuevoP = new Producto(code.value, nom.value, desc.value, cant.value, cost.value)
+    if (Prueba.agregarNuevo(nuevoP) === true) {
         alert('Producto guardado')
-        Bodega1.mostrar()
+        Prueba.mostrar()
     } else {
         alert('Producto no guardado no hay espacio')
     }
 })
 
-btnBorrar.addEventListener('click', () => {
-    if (Bodega1.delateProduct(codeB.value) === true) {
-        alert('Producto eliminado')
-        Bodega1.mostrar()
-    } else {
-        alert('Producto no encontrado')
-    }
-})
-btnBuscar.addEventListener('click', () => {
-    if (Bodega1.buscar(busCod.value) === false) {
-        alert('Producto no encontrado')
-    } else {
-        console.log(Bodega1.buscar(busCod.value))
-    }
-})
-btnRecuperar.addEventListener('click', () => {
-    if (Bodega1.listar() === false) {
-        alert('No hay productos que mostrar')
-    } else {
-        alert('producto mostrado')
-    }
-})
-btnRinverso.addEventListener('click', () => {
-    if (Bodega1.listarInver() === false) {
-        alert('No hay productos que mostrar')
-    } else {
-        alert('producto mostrado')
-    }
-})
