@@ -48,23 +48,23 @@ class Inventario {
     }
 
     eliminarInicio(){
-        aux= this.inicio;
-        this.inicio= this.inicio.siguiente;
-        aux.siguiente= null; 
+       let aux= this._inicio;
+        this._inicio= this.inicio.setSiguiente();
+        aux.setSiguiente()= null; 
         return aux
     }
 
     eliminarC(codigo){
-        if(this.inicio== codigo){
+        if(this._inicio== codigo){
             return this.eliminarInicio();
         } else{
-            let aux= this.inicio;
-            while(aux.siguiente.codigo!== codigo){
-                aux= aux.siguiente;
-            }if(aux.siguiente !==null){
-                temp= aux.siguiente;
-                aux.siguiente= temp.siguiente;
-                temp.siguiente = null;
+            let aux= this._inicio;
+            while(aux.setSiguiente().codigo !== codigo){
+                aux= aux.setSiguiente();
+            }if(aux.setSiguiente() !==null){
+                temp= aux.setSiguiente();
+                aux.setSiguiente()= temp.setSiguiente();
+                temp.setSiguiente() = null;
 
             }else{
                 return null; 
@@ -74,12 +74,11 @@ class Inventario {
     }
 
     buscar(codigo){
-        while(aux.siguiente.codigo !== codigo){
-            aux= aux.siguiente;
-
-
-
-        }
+        while(aux.setSiguiente().codigo !== codigo){
+            aux= aux.setSiguiente();
+        }if(aux.setSiguiente().codigo == codigo){
+            return aux.setCodigo(); 
+        } 
     }
    
 
