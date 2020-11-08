@@ -24,15 +24,11 @@ class Producto {
 }
 class Inventario {
     constructor() {
-        this._productos = new Array()
         this.inicio= null;
-
     }
     agregarInicio(nuevo) {
         nuevo.siguiente= this.inicio;
         this.inicio= nuevo;
-        
-
     }
     agregarNuevo(nuevo){
         if(this.inicio== null){
@@ -44,8 +40,32 @@ class Inventario {
                 aux.siguiente= nuevo;
             }
         }
+    }
 
+    eliminarInicio(){
+        aux= this.inicio;
+        this.inicio= this.inicio.siguiente;
+        aux.siguiente= null; 
+        return aux
+    }
 
+    eliminarC(codigo){
+        if(this.inicio== codigo){
+            return this.eliminarInicio();
+        } else{
+            aux= this.inicio;
+            while(aux.siguiente.codigo!== codigo){
+                aux= aux.siguiente;
+            }if(aux.siguiente!==null){
+                temp= aux.siguiente;
+                aux.siguiente= temp.siguiente;
+                temp.siguiente = null;
+
+            }else{
+                return null; 
+            }
+             
+        }
     }
    
     delateProduct(codigo) {
